@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background: #f2f2f2; }
+    button { padding: 5px 10px; cursor: pointer; background: #dc3545; color: white; border: none; border-radius: 4px; }
+    button:hover { background: #a71d2a; }
+  </style>
+</head>
+<body>
+  <h2>Dashboard</h2>
+  <p id="welcomeMsg"></p>
+  <button onclick="logout()">Logout</button>
+
+  <h3>Registered Users</h3>
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Password (Hashed)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const userTableBody = document.querySelector("#userTable tbody");
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (!loggedInUser) {
+      alert("Please login first.");
+      window.location.href = "login.html";
+    }
+
+    document.getElementById("welcomeMsg").textContent = 
+      `Welcome, ${loggedInUser.username}!`;
+
+    function loadUsers() {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      userTableBody.innerHTML = "";
+      users.forEach((user, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${user.username}</td>
+          <td>${user.email}</td>
+          <td>${user.password}</td>
+          <td><button onclick="deleteUser(${index})">Delete</button></td>
+        `;
+        userTableBody.appendChild(row);
+      });
+    }
+
+    function deleteUser(index) {
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      users.splice(index, 1);
+      localStorage.setItem("users", JSON.stringify(users));
+      loadUsers();
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "login.html";
+    }
+
+    loadUsers();
+  </script>
+</body>
+</html>
