@@ -1,4 +1,4 @@
-#  Signup Form with Validation and Dashboard Project for NSCC
+#  Signup Form with Validation and Quiz app Project for NSCC
 
 This repository contains multiple small web application tasks, each organized in its own folder with documentation and deployment link.
 
@@ -46,3 +46,28 @@ We follow semantic commit messages:
 ## 📌 Notes
 - These are **frontend-only demo projects**.
 - For production use, always add a backend (Node.js, Django, etc.) and secure password hashing (bcrypt, Argon2, etc.).
+
+# 🎯 Interactive Quiz App
+
+### 🔹 Task 02 – Quiz
+
+A simple **multiple-choice quiz app** built using **HTML, CSS, and JavaScript**.  
+This app lets users answer 5 quiz questions, submit their answers, and see their final score along with correct/incorrect feedback.  
+
+---
+
+## 🚀 Demo
+👉 [Live Quiz App](https://USERNAME.github.io/quiz-app/)  
+
+---
+
+## 📌 Features
+- ✅ 5 Multiple-choice questions  
+- ✅ One option selectable per question  
+- ✅ Submit button  
+- ✅ Shows final score  
+- ✅ Highlights correct/incorrect answers (with correct answer shown)  
+
+---
+
+## 📂 Project Structure
