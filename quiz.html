@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Quiz App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .question {
+      margin: 20px 0;
+    }
+    .options label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background: #4CAF50;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+    .incorrect {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Interactive Quiz App</h1>
+    <div id="quiz"></div>
+    <button id="submit">Submit</button>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        q: "Who is the Prime Minister of France (2025)?",
+        options: ["Laurent Fabius", "Sébastien Lecornu", "Gabriel Attal", "Manuel Valls"],
+        answer: 1
+      },
+      {
+        q: "Which city is known as the Pink City?",
+        options: ["Kolkata", "Chennai", "Jaipur", "Hyderabad"],
+        answer: 2
+      },
+      {
+        q: "Who is the CEO of Microsoft?",
+        options: ["Satya Nadella", "Leo Tolstoy", "Bill Gates", "Mark Twain"],
+        answer: 0
+      },
+      {
+        q: "What is the largest country on Earth?",
+        options: ["Australia", "Antarctica", "Russia", "China"],
+        answer: 2
+      },
+      {
+        q: "Which is the powerhouse of the cell?",
+        options: ["Nucleus", "Amoeba", "Ribosome", "Mitochondria"],
+        answer: 3
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+    const resultContainer = document.getElementById("result");
+    const submitButton = document.getElementById("submit");
+
+    function buildQuiz() {
+      const output = [];
+      quizData.forEach((question, qIndex) => {
+        const options = [];
+        question.options.forEach((opt, optIndex) => {
+          options.push(
+            `<label>
+              <input type="radio" name="question${qIndex}" value="${optIndex}">
+              ${opt}
+            </label>`
+          );
+        });
+        output.push(
+          `<div class="question"><strong>${qIndex + 1}. ${question.q}</strong>
+            <div class="options">${options.join("")}</div>
+          </div>`
+        );
+      });
+      quizContainer.innerHTML = output.join("");
+    }
+
+    function showResults() {
+      const answerContainers = quizContainer.querySelectorAll(".options");
+      let score = 0;
+      let output = "";
+
+      quizData.forEach((question, qIndex) => {
+        const selected = (answerContainers[qIndex].querySelector(`input[name=question${qIndex}]:checked`) || {}).value;
+        if (parseInt(selected) === question.answer) {
+          score++;
+          output += `<p class="correct">${qIndex + 1}. Correct ✔ welldone</p>`;
+        } else {
+          output += `<p class="incorrect">${qIndex + 1}. Incorrect ✘ trynexttime (Correct Answer is: ${question.options[question.answer]})</p>`;
+        }
+      });
+
+      resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}<br>${output}`;
+    }
+
+    buildQuiz();
+    submitButton.addEventListener("click", showResults);
+  </script>
+</body>
+</html>
+
