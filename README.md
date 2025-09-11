@@ -1,5 +1,4 @@
-# web_app_project
-#  Web App Project NSCC
+#  Signup Form with Validation and Dashboard Project for NSCC
 
 This repository contains multiple small web application tasks, each organized in its own folder with documentation and deployment link.
 
