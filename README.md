@@ -71,3 +71,6 @@ This app lets users answer 5 quiz questions, submit their answers, and see their
 ---
 
 ## 📂 Project Structure
+quiz-app/
+├── quiz.html # Main quiz app file
+└── README.md # Project documentation
